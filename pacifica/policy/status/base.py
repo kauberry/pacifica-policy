@@ -15,5 +15,8 @@ class QueryBase(AdminPolicy):
     all_transactions_url = '{0}/transactions'.format(md_url)
 
     def _get_available_projects(self, user_id):
-        return self._projects_for_user(user_id)
+        user_projects = self._projects_for_user(user_id)
+        custodian_projects = self._projects_for_custodian(user_id)
+
+        return list(set().union(user_projects, custodian_projects))
 # pylint: enable=too-few-public-methods
